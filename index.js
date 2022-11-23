@@ -5,30 +5,41 @@ const client = new Client({
 });
 const embed = new EmbedBuilder()
     .setColor(0x000000)
-    .setTitle("メッセージが削除されました")
 
 client.on("ready", () => {
-    console.log(`${client.user.tag}でログインしています．`);
+    console.log(`READY\n${client.user.tag}(${client.user.id})`);
+});
+
+client.on("messageUpdate", (oldMessage, newMessage) => {
+    if (oldMessage.author.id === client.user.id && newMessage.embeds[0] === undefined) {
+        oldMessage.edit({embeds: [oldMessage.embeds[0]]});
+    }
 });
 
 client.on("messageDelete", message => {
-    embed.setAuthor({name: `${message.author.username}`});
-    embed.setFields();
-    if (message.content) {
-        embed.addFields({
-            name: "削除されたメッセージ", value: `${message.content}`
-        },);
-        if (message.attachments.size) {
-            embed.addFields({
-                name: "削除された添付ファイル", value: `${message.attachments.map(attachment => attachment.url).join("\n")}`
-            },);
-        }
+    if (message.author.avatarURL()) {
+        embed.setAuthor({name: `${message.author.username}`, iconURL: `${message.author.avatarURL()}`});
+    } else if (message.author.avatarURL() === null) {
+        embed.setAuthor({name: `${message.author.username}`, iconURL: "https://cdn.discordapp.com/embed/avatars/1.png"})
     } else {
-        embed.addFields({
-            name: "削除された添付ファイル", value: `${message.attachments.map(attachment => attachment.url).join("\n")}`
-        },);
+        console.log("アバターアイコンで例外が発生しました");
     }
-    message.channel.send({embeds: [embed]});
-})
+    if (message.author.id === client.user.id) {
+        const r_embed = message.embeds[0];
+        message.channel.send({content: "**メッセージが削除されました**", embeds: [r_embed]});
+        return;
+    }
+    if (message.content) {
+        embed.setDescription(`${message.content}`);
+        if (message.attachments.size) {
+            embed.setDescription(`${message.content}\n${message.attachments.map(attachment => attachment.url).join("\n")}`);
+        }
+    } else if (message.attachments.size) {
+        embed.setDescription(`${message.attachments.map(attachment => attachment.url).join("\n")}`);
+    } else {
+        console.log("送信コンテンツで例外が発生しました");
+    }
+    message.channel.send({content: "**メッセージが削除されました**", embeds: [embed]});
+});
 
 client.login(process.env.TOKEN);
