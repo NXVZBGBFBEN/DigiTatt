@@ -40,6 +40,7 @@ client.on("messageDelete", message => {
     }
     if (message.author.id === client.user.id) {
         message.channel.send({content: "**メッセージが削除されました**", embeds: [message.embeds[0]]});
+        return;
     } else if (message.author.bot) {
         return;
     }
