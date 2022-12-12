@@ -1,7 +1,7 @@
 # DigiTatt
 
 ## なにこれ
-![](https://video.twimg.com/ext_tw_video/1595534159690465280/pu/vid/936x720/uR6gCElPFEMrnYTR.mp4)  
+[最新版の挙動(動画)](https://video.twimg.com/ext_tw_video/1595534159690465280/pu/vid/936x720/uR6gCElPFEMrnYTR.mp4)  
 Discord用自動デジタルタトゥー彫刻botです．  
 削除されたメッセージを検知して復活させます．
 
