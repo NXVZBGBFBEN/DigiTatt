@@ -15,4 +15,4 @@ Discord用自動デジタルタトゥー彫刻botです．
 ## コメント
 このbotは[第1回Kloud Discord Botコンテスト](https://seestyle.notion.site/1-Kloud-Discord-Bot-7df230297b864fb5a7930b66773a8ffc)応募作品です．  
 Discord.jsを用いたbotの習作として制作しました．  
-ネタ成分95%，実用性5%程度のbotなので導入には注意してください．
+**ネタ成分95%，実用性5%程度**のbotなので導入には注意してください．
