@@ -29,6 +29,7 @@ client.on("messageUpdate", (oldMessage, newMessage) => {
 });
 
 client.on("messageDelete", message => {
+    embed.setTimestamp(message.createdTimestamp);
     if (message.author.avatarURL()) {
         embed.setAuthor({name: `${message.author.username}`, iconURL: `${message.author.avatarURL()}`});
     } else if (message.author.avatarURL() === null) {
